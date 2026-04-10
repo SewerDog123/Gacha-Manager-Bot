@@ -1,5 +1,3 @@
-const { SendMessageToRoblox } = require('../MessagingService.js');
-
 module.exports = {
     name: 'ping',
     description: "Check bot latency",
