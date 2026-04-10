@@ -79,9 +79,8 @@ async function deployCommands() {
     try {
         console.log("Deploying commands..")
         await rest.put(
-            Routes.applicationGuildCommands(
+            Routes.applicationCommands(
                 process.env.CLIENT_ID,
-                process.env.GUILD_ID,
             ),
             { body: commands }
         );
