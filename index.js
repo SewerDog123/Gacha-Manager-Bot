@@ -1,18 +1,19 @@
 // Bot.js
-const { Client, GatewayIntentBits, Collection, REST, Routes, SlashCommandBuilder } = require('discord.js');
+const Discord = require('discord.js');
 
 const fs = require('fs');
 const path = require('path');
+const keep_alive = require('./keep_alive.js')
 
-const client = new Client({
+const client = new Discord.Client({
     intents: [
-        GatewayIntentBits.Guilds,
-        // GatewayIntentBits.GuildMessages,
-        // GatewayIntentBits.MessageContent
+        Discord.GatewayIntentBits.Guilds,
+        // Discord.GatewayIntentBits.GuildMessages,
+        // Discord.GatewayIntentBits.MessageContent
     ]
 });
 
-client.commands = new Collection();
+client.commands = new Discord.Collection();
 const commandsPath = path.join(__dirname, 'src', 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
@@ -32,7 +33,7 @@ async function deployCommands() {
         //     continue;
         // }
         
-        const builder = new SlashCommandBuilder()
+        const builder = new Discord.SlashCommandBuilder()
             .setName(command.name)
             .setDescription(command.description);
 
@@ -73,12 +74,12 @@ async function deployCommands() {
         commands.push(builder.toJSON());
     }
 
-    const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+    const rest = new Discord.REST({ version: '10' }).setToken(process.env.TOKEN);
 
     try {
         console.log("Deploying commands..");
         await rest.put(
-            Routes.applicationGuildCommands(
+            Discord.Routes.applicationGuildCommands(
                 process.env.CLIENT_ID,
                 process.env.GUILD_ID,
             ),
@@ -97,7 +98,7 @@ client.once('clientReady', () => {
 
 // Execute command
 client.on('interactionCreate', async interaction => {
-   if (!interaction.isCommand()) return;
+   if (!interaction.isChatInputCommand()) return;
 
    const command = client.commands.get(interaction.commandName)
    if (!command) {
