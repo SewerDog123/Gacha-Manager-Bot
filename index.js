@@ -82,7 +82,7 @@ async function deployCommands() {
             Routes.applicationCommands(
                 process.env.CLIENT_ID,
             ),
-            { body: commands }
+            { body: [] }
         );
         console.log("Command deployed")
     } catch (error) {
