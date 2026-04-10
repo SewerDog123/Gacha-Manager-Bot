@@ -83,7 +83,7 @@ async function deployCommands() {
                 process.env.CLIENT_ID,
                 process.env.GUILD_ID,
             ),
-            { body: [] }
+            { body: commands }
         );
         console.log("Command deployed");
     } catch (error) {

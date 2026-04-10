@@ -5,7 +5,7 @@ module.exports = {
     async execute(interaction) {
        const sent = await interaction.reply({
           content: "Pinging..",
-          fetchReply: true,
+          ephemeral: true,
        })
 
        const latency = sent.createdTimestamp - interaction.createdTimestamp;
