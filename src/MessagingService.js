@@ -1,4 +1,5 @@
 const axios = require('axios');
+require('dotenv').config();
 
 module.exports.SendMessageToRoblox = async function sendMessage(message, topic) {
      const response = await axios.post(

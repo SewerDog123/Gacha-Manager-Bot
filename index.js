@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 const fs = require('fs');
 const path = require('path');
-const keep_alive = require('./keep_alive.js')
+require('dotenv').config();
 
 const client = new Discord.Client({
     intents: [
